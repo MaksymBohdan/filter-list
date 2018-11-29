@@ -1,44 +1,50 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Guidelines
+Submit the task on GIT.
 
-## Available Scripts
+Code should work on the latest version of Chrome.
 
-In the project directory, you can run:
+Stack: ES6/ES7, React, Redux, Jest, Enzyme
 
-### `npm start`
+## Mock
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Creates 400 random properties (with id from 10000 to 10399) (200 with type Home,  200 with type Condo).
+Each second the price and timestamp of the property is updated. Update of each property is being sent independently
+within the subscription.
+To create the subscription in src/App.js:
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+properties$.subscribe((propertyUpdate) => console.log('propertyUpdate'));
 
-### `npm test`
+The mock is Rx.js observable. You should not change it or work with it directly by using any operators on the stream.
+The knowledge of Rx.js is not required, it is used in the test only to generate frequent updates of data.
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Tasks to implement
 
-### `npm run build`
+1. Create the table of all the properties with such columns:
+    - ID
+    - Address
+    - Price
+    - Last Update
+    - Type
+    - Is in favorite
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## !!The table should be visually updated with the latest data each 2 seconds!!
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+2. Provide an ability to sort by each field in both directions (asc and desc)
+3. Add an ability to add a property to favorites by clicking on a heart icon in "Is in favorite" column.
+The properties, that are added to fav, should always go first in the table (for all sort settings)
+4. Add an input, that searches the property by Address, ID or Type. When a user types in the input - the block with
+autosuggestion should appear below the input with the list of properties, that match the criteria. The up-to-date price
+of the property should appear next to it.
+5. If a user clicks enter on the input - the table should be filtered according to the value of the input.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Additional:
+1) Cover the implementation by tests using Jest and Enzyme.
+2) Implement some trottling logic on the input in order to avoid redundant updates.
+3) Provide a decent design to the solution, pay attention to css.
 
-### `npm run eject`
+Use the best practises regarding React/Redux applictions in order to achive the best performance and UX in this
+mini-application.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Run the boilerplate
+    - npm install
+    - npm start
