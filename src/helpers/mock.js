@@ -22,11 +22,11 @@ const getAllProperties = (n) => {
   return result;
 };
 
-const properties = getAllProperties(200);
+const properties = getAllProperties(1);
 
 
 export default Rx.Observable
-  .interval(1000)
+  .interval(3000)
   .mergeMap(
     () => Rx.Observable
       .from(properties)
