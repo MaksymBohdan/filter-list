@@ -5,7 +5,7 @@ import properties$ from './mock';
 class App extends Component {
   componentDidMount() {
     properties$.subscribe(data => {
-      console.log('data', data);
+      // console.log('data', data);
     });
   }
 
