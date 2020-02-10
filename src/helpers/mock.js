@@ -22,7 +22,7 @@ const getAllProperties = (n) => {
   return result;
 };
 
-const properties = getAllProperties(1);
+const properties = getAllProperties(10);
 
 
 export default Rx.Observable
