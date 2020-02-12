@@ -1,4 +1,4 @@
-import * as types from './types';
+import * as types from '../types/types';
 
 export const addProperties = list => ({
   type: types.ADD_PROPERTY,

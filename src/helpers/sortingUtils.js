@@ -12,3 +12,15 @@ export const sortNumbers = name => ({
 
 export const setNextSortDirection = currentDirection =>
   ({ default: 'asc', asc: 'dsc', dsc: 'default' }[currentDirection]);
+
+export const setIconClass = (currentDirection, currentColumn, label) => {
+  const classes = {
+    default: 'fas fa-sort',
+    asc: 'fas fa-sort-up',
+    dsc: 'fas fa-sort-down'
+  };
+
+  if (currentColumn !== label) return classes.default;
+
+  return classes[currentDirection];
+};
