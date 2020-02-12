@@ -1,15 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import properties$ from '../helpers/mock';
+import properties$ from '../services/mock';
 import { addProperties, addSortBy } from '../redux/actions/actions';
-import { propertyList, currentDirection } from '../redux/selectors/selectors';
+import {
+  propertyList,
+  currentDirection,
+  currentColumn
+} from '../redux/selectors/selectors';
 import Table from './Table';
 import { setNextSortDirection } from '../helpers/sortingUtils';
 
 class App extends Component {
   componentDidMount() {
     properties$.subscribe(data => {
-      this.props.addProperties(data);
+      this.props.addProperties({ ...data, favorite: false });
     });
   }
 
@@ -23,12 +27,17 @@ class App extends Component {
   };
 
   render() {
-    const { propertyList } = this.props;
-
+    const { propertyList, currentDirection, currentColumn } = this.props;
+    console.log('main');
     return (
       <>
         <div className="app">MAIN</div>
-        <Table propertyList={propertyList} handleSortBy={this.handleSortBy} />
+        <Table
+          propertyList={propertyList}
+          handleSortBy={this.handleSortBy}
+          currentDirection={currentDirection}
+          currentColumn={currentColumn}
+        />
       </>
     );
   }
@@ -36,7 +45,8 @@ class App extends Component {
 
 const MSTP = state => ({
   propertyList: propertyList(state),
-  currentDirection: currentDirection(state)
+  currentDirection: currentDirection(state),
+  currentColumn: currentColumn(state)
 });
 
 const MDTP = dispatch => ({

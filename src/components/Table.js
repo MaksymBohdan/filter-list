@@ -1,30 +1,25 @@
 import React from 'react';
+import TableHead from './TableHead';
+import TableBody from './TableBody';
 
-const Table = ({ propertyList, handleSortBy }) => {
+const Table = ({
+  propertyList = [],
+  handleSortBy,
+  currentDirection,
+  currentColumn
+}) => {
+  const tableLabels =
+    (propertyList.length > 0 && Object.keys(propertyList[0])) || [];
+
   return (
     <table>
-      <thead>
-        <tr onClick={handleSortBy}>
-          <th data-name="id">ID</th>
-          <th data-name="address">Address</th>
-          <th data-name="price">Price</th>
-          <th data-name="lastUpdate">Last Update</th>
-          <th data-name="type">Type</th>
-          <th data-name="favorite">Favorite</th>
-        </tr>
-      </thead>
-      <tbody>
-        {propertyList.map(({ id, address, price, lastUpdate, type }) => (
-          <tr key={id}>
-            <td>{id}</td>
-            <td>{address}</td>
-            <td>{price}</td>
-            <td>{lastUpdate}</td>
-            <td>{type}</td>
-            <td>NO</td>
-          </tr>
-        ))}
-      </tbody>
+      <TableHead
+        tableLabels={tableLabels}
+        handleSortBy={handleSortBy}
+        currentDirection={currentDirection}
+        currentColumn={currentColumn}
+      />
+      <TableBody propertyList={propertyList} />
     </table>
   );
 };
