@@ -1,4 +1,4 @@
-import * as types from '../actions/types';
+import * as types from '../types/types';
 
 const initialProperty = {};
 
