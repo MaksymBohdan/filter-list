@@ -5,6 +5,11 @@ export const addProperties = list => ({
   payload: list
 });
 
+export const manageFavorite = property => ({
+  type: types.MANAGE_FAVORITE,
+  payload: property
+});
+
 export const addSortBy = sortData => ({
   type: types.SORT_BY,
   payload: sortData

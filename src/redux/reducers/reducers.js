@@ -5,6 +5,9 @@ const initialProperty = {};
 export const property = (state = initialProperty, { type, payload }) => {
   switch (type) {
     case types.ADD_PROPERTY:
+      return { ...payload };
+      
+    case types.MANAGE_FAVORITE:
       return { ...state, [payload.id]: payload };
 
     default:

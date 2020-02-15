@@ -6,10 +6,17 @@ const Table = ({
   propertyList = [],
   handleSortBy,
   currentDirection,
-  currentColumn
+  currentColumn,
+  handleAddFavorite
 }) => {
-  const tableLabels =
-    (propertyList.length > 0 && Object.keys(propertyList[0])) || [];
+  const tableLabels = [
+    'id',
+    'address',
+    'price',
+    'lastUpdate',
+    'type',
+    'favorite'
+  ];
 
   return (
     <table>
@@ -19,7 +26,10 @@ const Table = ({
         currentDirection={currentDirection}
         currentColumn={currentColumn}
       />
-      <TableBody propertyList={propertyList} />
+      <TableBody
+        propertyList={propertyList}
+        handleAddFavorite={handleAddFavorite}
+      />
     </table>
   );
 };
