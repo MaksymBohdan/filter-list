@@ -2,12 +2,16 @@ import React from 'react';
 import { adjustLable } from '../helpers/textUtils';
 import { setIconClass } from '../helpers/sortingUtils';
 
-const TableHead = ({
-  tableLabels,
-  handleSortBy,
-  currentDirection,
-  currentColumn
-}) => (
+const tableLabels = [
+  'id',
+  'address',
+  'price',
+  'lastUpdate',
+  'type',
+  'favorite'
+];
+
+const TableHead = ({ handleSortBy, currentDirection, currentColumn }) => (
   <thead>
     <tr>
       {tableLabels.map(label => (
@@ -24,4 +28,4 @@ const TableHead = ({
   </thead>
 );
 
-export default TableHead;
+export default React.memo(TableHead);

@@ -1,23 +1,26 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import properties$ from '../services/mock';
 import debounce from 'lodash.debounce';
 import merge from 'lodash.merge';
+
+import properties$ from '../../services/mock';
+import { setNextSortDirection } from '../../helpers/sortingUtils';
+
+import TableView from './TableView';
 import {
   addProperties,
   addSortBy,
   manageFavorite
-} from '../redux/actions/actions';
+} from '../../redux/actions/actions';
 import {
   propertyList,
   currentDirection,
   currentColumn,
   allProperties
-} from '../redux/selectors/selectors';
-import Table from './Table';
-import { setNextSortDirection } from '../helpers/sortingUtils';
+} from '../../redux/selectors/selectors';
 
-class App extends Component {
+
+class TableContainer extends Component {
   componentDidMount() {
     const handleDebounce = debounce(this.updateProperties, 3000);
     let propertiesToUpdate = {};
@@ -57,19 +60,15 @@ class App extends Component {
 
   render() {
     const { propertyList, currentDirection, currentColumn } = this.props;
-    console.log('main');
 
     return (
-      <>
-        <div className="app">MAIN</div>
-        <Table
-          propertyList={propertyList}
-          handleSortBy={this.handleSortBy}
-          currentDirection={currentDirection}
-          currentColumn={currentColumn}
-          handleAddFavorite={this.handleAddFavorite}
-        />
-      </>
+      <TableView
+        propertyList={propertyList}
+        handleSortBy={this.handleSortBy}
+        currentDirection={currentDirection}
+        currentColumn={currentColumn}
+        handleAddFavorite={this.handleAddFavorite}
+      />
     );
   }
 }
@@ -87,4 +86,4 @@ const MDTP = dispatch => ({
   manageFavorite: property => dispatch(manageFavorite(property))
 });
 
-export default connect(MSTP, MDTP)(App);
+export default connect(MSTP, MDTP)(TableContainer);
