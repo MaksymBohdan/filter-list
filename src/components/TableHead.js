@@ -9,12 +9,11 @@ const TableHead = ({
   currentColumn
 }) => (
   <thead>
-    <tr onClick={handleSortBy}>
+    <tr>
       {tableLabels.map(label => (
-        <th data-name={label} key={label}>
+        <th data-name={label} key={label} onClick={handleSortBy}>
           {adjustLable(label)}
           <span>
-            {' '}
             <i
               className={setIconClass(currentDirection, currentColumn, label)}
             />
