@@ -3,22 +3,12 @@ import { connect } from 'react-redux';
 import debounce from 'lodash.debounce';
 import merge from 'lodash.merge';
 
+import TableView from './TableView';
+
 import properties$ from '../../services/mock';
 import { setNextSortDirection } from '../../helpers/sortingUtils';
-
-import TableView from './TableView';
-import {
-  addProperties,
-  addSortBy,
-  manageFavorite
-} from '../../redux/actions/actions';
-import {
-  propertyList,
-  currentDirection,
-  currentColumn,
-  allProperties
-} from '../../redux/selectors/selectors';
-
+import * as actions from '../../redux/actions/actions';
+import * as selectors from '../../redux/selectors/selectors';
 
 class TableContainer extends Component {
   componentDidMount() {
@@ -60,6 +50,7 @@ class TableContainer extends Component {
 
   render() {
     const { propertyList, currentDirection, currentColumn } = this.props;
+    console.log('container');
 
     return (
       <TableView
@@ -74,16 +65,16 @@ class TableContainer extends Component {
 }
 
 const MSTP = state => ({
-  propertyList: propertyList(state),
-  currentDirection: currentDirection(state),
-  currentColumn: currentColumn(state),
-  allProperties: allProperties(state)
+  propertyList: selectors.propertyList(state),
+  currentDirection: selectors.currentDirection(state),
+  currentColumn: selectors.currentColumn(state),
+  allProperties: selectors.allProperties(state)
 });
 
 const MDTP = dispatch => ({
-  addProperties: list => dispatch(addProperties(list)),
-  addSortBy: sortData => dispatch(addSortBy(sortData)),
-  manageFavorite: property => dispatch(manageFavorite(property))
+  addProperties: list => dispatch(actions.addProperties(list)),
+  addSortBy: sortData => dispatch(actions.addSortBy(sortData)),
+  manageFavorite: property => dispatch(actions.manageFavorite(property))
 });
 
 export default connect(MSTP, MDTP)(TableContainer);
