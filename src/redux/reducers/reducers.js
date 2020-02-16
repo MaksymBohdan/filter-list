@@ -6,7 +6,7 @@ export const property = (state = initialProperty, { type, payload }) => {
   switch (type) {
     case types.ADD_PROPERTY:
       return { ...payload };
-      
+
     case types.MANAGE_FAVORITE:
       return { ...state, [payload.id]: payload };
 
@@ -24,6 +24,17 @@ export const sortBy = (state = initialSortBy, { type, payload }) => {
   switch (type) {
     case types.SORT_BY:
       return { ...payload };
+
+    default:
+      return state;
+  }
+};
+
+const initialFilterBy = '';
+export const filterBy = (state = initialFilterBy, { type, payload }) => {
+  switch (type) {
+    case types.FILTER_BY:
+      return payload;
 
     default:
       return state;
