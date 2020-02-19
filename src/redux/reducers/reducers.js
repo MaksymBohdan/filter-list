@@ -40,24 +40,3 @@ export const filterBy = (state = initialFilterBy, { type, payload }) => {
       return state;
   }
 };
-
-const initialPagination = {
-  currentPage: 1,
-  totalRecords: 0,
-  pageLimit: 10,
-  pageNeighbours: 2,
-  pointerStep: 2
-};
-
-export const pagination = (state = initialPagination, { type, payload }) => {
-  switch (type) {
-    case types.ADD_PROPERTY:
-      return { ...state, totalRecords: Object.keys(payload).length };
-
-    case types.SET_PAGE:
-      return { ...state, currentPage: payload };
-      
-    default:
-      return state;
-  }
-};

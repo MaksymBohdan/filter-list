@@ -50,6 +50,7 @@ class TableContainer extends Component {
 
   render() {
     const { propertyList, currentDirection, currentColumn } = this.props;
+    console.log('container');
 
     return (
       <TableView
