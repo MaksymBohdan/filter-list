@@ -1,10 +1,11 @@
 import { combineReducers } from 'redux';
-import { property, sortBy, filterBy } from './reducers';
+import { property, sortBy, filterBy, pagination } from './reducers';
 
 const rootReducer = combineReducers({
   property,
   sortBy,
-  filterBy
+  filterBy,
+  pagination
 });
 
 export default rootReducer;
