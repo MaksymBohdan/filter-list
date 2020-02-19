@@ -19,8 +19,3 @@ export const filterBy = filterValue => ({
   type: types.FILTER_BY,
   payload: filterValue
 });
-
-export const setPage = page => ({
-  type: types.SET_PAGE,
-  payload: page
-});
