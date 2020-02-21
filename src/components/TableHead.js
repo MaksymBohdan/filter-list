@@ -1,20 +1,12 @@
 import React from 'react';
 import { adjustLable } from '../helpers/textUtils';
 import { setIconClass } from '../helpers/sortingUtils';
-
-const tableLabels = [
-  'id',
-  'address',
-  'price',
-  'lastUpdate',
-  'type',
-  'favorite'
-];
+import { TABLE_LABELS } from '../constants/constants';
 
 const TableHead = ({ handleSortBy, currentDirection, currentColumn }) => (
   <thead>
     <tr>
-      {tableLabels.map(label => (
+      {TABLE_LABELS.map(label => (
         <th data-name={label} key={label} onClick={handleSortBy}>
           {adjustLable(label)}
           <span>

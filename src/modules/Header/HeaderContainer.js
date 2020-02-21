@@ -5,7 +5,7 @@ import HeaderView from './HeaderView';
 
 import * as actions from '../../redux/actions/actions';
 import * as selectors from '../../redux/selectors/selectors';
-import { filterTable } from '../../helpers/filteringUtils';
+import { filterList } from '../../helpers/filteringUtils';
 
 class HeaderContainer extends Component {
   state = {
@@ -21,7 +21,6 @@ class HeaderContainer extends Component {
       const { inputValue } = this.state;
       const { filterBy } = this.props;
 
-      console.log('onEnter', e.key);
       filterBy(inputValue);
     }
 
@@ -40,7 +39,7 @@ class HeaderContainer extends Component {
   render() {
     const { propertyList } = this.props;
     const { inputValue } = this.state;
-    const filteredList = filterTable(propertyList, inputValue);
+    const filteredList = propertyList.filter(filterList(inputValue));
 
     return (
       <HeaderView

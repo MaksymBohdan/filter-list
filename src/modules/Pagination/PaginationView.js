@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+
+import { LEFT_PAGE, RIGHT_PAGE } from '../../constants/constants';
 import { calculatePagination } from '../../helpers/paginationUtils';
 
 const PaginationCmp = styled.ul`
@@ -14,9 +16,6 @@ const PageItem = styled.li`
   margin: 3px;
   background-color: ${props => (props.active ? 'blue' : 'red')};
 `;
-
-const LEFT_PAGE = 'LEFT';
-const RIGHT_PAGE = 'RIGHT';
 
 const Pagination = ({ paginationAttributes, handlePageChange }) => {
   const pages = calculatePagination(paginationAttributes) || [];

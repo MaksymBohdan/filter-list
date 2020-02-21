@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
-import { sortText, sortNumbers } from '../../helpers/sortingUtils';
-import { filterTable } from '../../helpers/filteringUtils';
+import { sortList } from '../../helpers/sortingUtils';
+import { filterList } from '../../helpers/filteringUtils';
 
 export const allProperties = state => state.property;
 export const currentColumn = state => state.sortBy.column;
@@ -17,13 +17,9 @@ const filterBy = state => state.filterBy;
 
 export const propertyList = createSelector(
   [allProperties, currentColumn, currentDirection, filterBy, pageLimit, offset],
-  (list, column, direction, filterValue, pageLimit, offset) =>
-    filterTable(
-      Object.values(list).sort((a, b) =>
-        typeof a[column] === 'string'
-          ? sortText(column)[direction](a, b)
-          : sortNumbers(column)[direction](a, b)
-      ),
-      filterValue
-    ).slice(offset, offset + pageLimit)
+  (list, column, direction, filterBy, pageLimit, offset) =>
+    Object.values(list)
+      .filter(filterList(filterBy))
+      .sort(sortList(column, direction))
+      .slice(offset, offset + pageLimit)
 );
