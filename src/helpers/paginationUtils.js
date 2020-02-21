@@ -1,5 +1,4 @@
-const LEFT_PAGE = 'LEFT';
-const RIGHT_PAGE = 'RIGHT';
+import { LEFT_PAGE, RIGHT_PAGE } from '../constants/constants';
 
 const numbersRange = (from, to, step = 1) => {
   let i = from;
