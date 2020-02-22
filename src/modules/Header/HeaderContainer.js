@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { useState, useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import HeaderView from './HeaderView';
 
@@ -7,58 +7,34 @@ import * as actions from '../../redux/actions/actions';
 import * as selectors from '../../redux/selectors/selectors';
 import { filterList } from '../../helpers/filteringUtils';
 
-class HeaderContainer extends Component {
-  state = {
-    inputValue: ''
-  };
+const HeaderContainer = () => {
+  const dispatch = useDispatch();
+  const propertyList = useSelector(selectors.propertyList);
+  const [inputValue, setInputValue] = useState('');
 
-  handleInput = e => {
-    this.setState({ inputValue: e.target.value });
-  };
+  const filteredList = propertyList.filter(filterList(inputValue));
 
-  handleTableFilter = e => {
-    if (e.key === 'Enter') {
-      const { inputValue } = this.state;
-      const { filterBy } = this.props;
+  const handleInput = useCallback(e => setInputValue(e.target.value), []);
 
-      filterBy(inputValue);
-    }
+  const handleTableFilter = useCallback(
+    e => e.key === 'Enter' && dispatch(actions.filterBy(inputValue)),
+    [dispatch, inputValue]
+  );
 
-    return;
-  };
+  const handleResetFilter = useCallback(() => {
+    dispatch(actions.filterBy(inputValue));
+    setInputValue('');
+  }, [dispatch, inputValue]);
 
-  handleResetFilter = () => {
-    const { filterBy } = this.props;
-    filterBy('');
+  return (
+    <HeaderView
+      inputValue={inputValue}
+      filteredList={filteredList}
+      handleInput={handleInput}
+      handleTableFilter={handleTableFilter}
+      handleResetFilter={handleResetFilter}
+    />
+  );
+};
 
-    this.setState({
-      inputValue: ''
-    });
-  };
-
-  render() {
-    const { propertyList } = this.props;
-    const { inputValue } = this.state;
-    const filteredList = propertyList.filter(filterList(inputValue));
-
-    return (
-      <HeaderView
-        inputValue={inputValue}
-        filteredList={filteredList}
-        handleInput={this.handleInput}
-        handleTableFilter={this.handleTableFilter}
-        handleResetFilter={this.handleResetFilter}
-      />
-    );
-  }
-}
-
-const MSTP = state => ({
-  propertyList: selectors.propertyList(state)
-});
-
-const MDTP = dispatch => ({
-  filterBy: filterValue => dispatch(actions.filterBy(filterValue))
-});
-
-export default connect(MSTP, MDTP)(HeaderContainer);
+export default HeaderContainer;

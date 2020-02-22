@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 const SearchInput = ({ value, onChange, onKeyPress }) => (
   <input
@@ -9,4 +9,4 @@ const SearchInput = ({ value, onChange, onKeyPress }) => (
   />
 );
 
-export default SearchInput;
+export default memo(SearchInput);

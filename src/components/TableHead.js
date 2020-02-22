@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { adjustLable } from '../helpers/textUtils';
 import { setIconClass } from '../helpers/sortingUtils';
 import { TABLE_LABELS } from '../constants/constants';
@@ -20,4 +20,4 @@ const TableHead = ({ handleSortBy, currentDirection, currentColumn }) => (
   </thead>
 );
 
-export default React.memo(TableHead);
+export default memo(TableHead);

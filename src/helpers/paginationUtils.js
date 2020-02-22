@@ -12,12 +12,9 @@ const numbersRange = (from, to, step = 1) => {
   return range;
 };
 
-const calculatePagination = ({
-  currentPage,
-  totalRecords,
-  pageLimit,
-  pageNeighbours
-}) => {
+const calculatePagination = ( currentPage, totalRecords, pageLimit ) => {
+  const pageNeighbours = 2;
+
   const totalPages = Math.ceil(totalRecords / pageLimit);
   const totalNumbers = pageNeighbours * 2 + 3;
   const totalBlocks = totalNumbers + 2;

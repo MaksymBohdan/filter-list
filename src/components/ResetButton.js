@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 const ResetButton = ({ onReset }) => (
   <button type="button" onClick={onReset}>
@@ -6,4 +6,4 @@ const ResetButton = ({ onReset }) => (
   </button>
 );
 
-export default ResetButton;
+export default memo(ResetButton);
