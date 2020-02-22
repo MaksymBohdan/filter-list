@@ -1,45 +1,43 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import PaginationView from './PaginationView';
 
 import * as actions from '../../redux/actions/actions';
 import * as selectors from '../../redux/selectors/selectors';
+import { calculatePagination } from '../../helpers/paginationUtils';
 
-class PaginationContainer extends Component {
-  handlePageChange = e => {
-    const {
-      paginationAttributes: { currentPage, pointerStep },
-      setPage
-    } = this.props;
+const PaginationContainer = () => {
+  const currentPage = useSelector(selectors.currentPage);
+  const pageLimit = useSelector(selectors.pageLimit);
+  const totalRecords = useSelector(selectors.totalRecords);
+  const dispatch = useDispatch();
+  
+  const pages = calculatePagination(currentPage, totalRecords, pageLimit) || [];
+  const isPagite = totalRecords || !(totalRecords / pageLimit) === 1;
 
+  const handlePageChange = e => {
     const clickedPage = e.currentTarget.dataset.page;
+    const pointerStep = 2;
 
     if (currentPage !== clickedPage) {
-      if (clickedPage === 'RIGHT') return setPage(currentPage + pointerStep);
-      if (clickedPage === 'LEFT') return setPage(currentPage - pointerStep);
+      if (clickedPage === 'RIGHT')
+        return dispatch(actions.setPage(currentPage + pointerStep));
+      if (clickedPage === 'LEFT')
+        return dispatch(actions.setPage(currentPage - pointerStep));
 
-      setPage(Number(clickedPage));
+      dispatch(actions.setPage(Number(clickedPage)));
     }
   };
 
-  render() {
-    const { paginationAttributes } = this.props;
+  return (
+    <PaginationView
+      handlePageChange={handlePageChange}
+      isPagite={isPagite}
+      pages={pages}
+      currentPage={currentPage}
+    />
+  );
+};
 
-    return (
-      <PaginationView
-        paginationAttributes={paginationAttributes}
-        handlePageChange={this.handlePageChange}
-      />
-    );
-  }
-}
-
-const MSTP = state => ({
-  paginationAttributes: selectors.paginationAttributes(state)
-});
-const MDTP = dispatch => ({
-  setPage: page => dispatch(actions.setPage(page))
-});
-
-export default connect(MSTP, MDTP)(PaginationContainer);
+export default PaginationContainer;
