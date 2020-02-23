@@ -1,14 +1,21 @@
 import * as types from '../types/types';
+import merge from 'lodash.merge';
 
 const initialProperty = {};
 
 export const property = (state = initialProperty, { type, payload }) => {
   switch (type) {
     case types.ADD_PROPERTY:
-      return { ...payload };
+      return merge({}, state, payload);
 
     case types.MANAGE_FAVORITE:
-      return { ...state, [payload.id]: payload };
+      return {
+        ...state,
+        [payload]: {
+          ...state[payload],
+          isFavorite: !state[payload].favorite
+        }
+      };
 
     default:
       return state;
@@ -46,10 +53,7 @@ const initialPagination = {
   pageLimit: 10
 };
 
-export const pagination = (
-  state = initialPagination,
-  { type, payload }
-) => {
+export const pagination = (state = initialPagination, { type, payload }) => {
   switch (type) {
     case types.SET_PAGE:
       return { ...state, currentPage: payload };
