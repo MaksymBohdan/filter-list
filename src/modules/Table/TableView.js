@@ -1,6 +1,13 @@
 import React from 'react';
+import styled from 'styled-components';
+
 import TableHead from '../../components/TableHead';
 import TableBody from '../../components/TableBody';
+
+const StyledTable = styled.table`
+  margin: auto;
+  width: 800px;
+`;
 
 const Table = ({
   propertyList = [],
@@ -9,7 +16,7 @@ const Table = ({
   currentColumn,
   handleAddFavorite
 }) => (
-  <table>
+  <StyledTable>
     <TableHead
       handleSortBy={handleSortBy}
       currentDirection={currentDirection}
@@ -19,7 +26,7 @@ const Table = ({
       propertyList={propertyList}
       handleAddFavorite={handleAddFavorite}
     />
-  </table>
+  </StyledTable>
 );
 
 export default Table;

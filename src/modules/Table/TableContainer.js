@@ -8,6 +8,7 @@ import properties$ from '../../services/mock';
 import { setNextSortDirection } from '../../helpers/sortingUtils';
 import * as actions from '../../redux/actions/actions';
 import * as selectors from '../../redux/selectors/selectors';
+import Spinner from '../../components/Spinner';
 
 const TableContainer = () => {
   const propertyList = useSelector(selectors.propertyList);
@@ -49,13 +50,15 @@ const TableContainer = () => {
   );
 
   return (
-    <TableView
-      propertyList={propertyList}
-      handleSortBy={handleSortBy}
-      currentDirection={currentDirection}
-      currentColumn={currentColumn}
-      handleAddFavorite={handleAddFavorite}
-    />
+    <Spinner loading={!propertyList.length}>
+      <TableView
+        propertyList={propertyList}
+        handleSortBy={handleSortBy}
+        currentDirection={currentDirection}
+        currentColumn={currentColumn}
+        handleAddFavorite={handleAddFavorite}
+      />
+    </Spinner>
   );
 };
 

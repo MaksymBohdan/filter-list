@@ -1,7 +1,27 @@
 import React from 'react';
+import styled from 'styled-components';
 
-import { PageItem, PaginationCmp } from './styles';
 import { LEFT_PAGE, RIGHT_PAGE } from '../../constants/constants';
+
+const PaginationCmp = styled.ul`
+  margin: auto;
+  padding: 10px;
+  width: 500px;
+  display: flex;
+  justify-content: center;
+`;
+
+const PageItem = styled.li`
+  width: 30px;
+  padding: 5px;
+  margin: 3px;
+  text-align: center;
+  color: white;
+  background-color: ${props => (props.active ? 'teal' : 'blue')};
+  border-radius: 50%;
+  cursor: pointer;
+  font-weight: bold;
+`;
 
 const Pagination = ({ isPagite, pages, handlePageChange, currentPage }) =>
   isPagite ? (
