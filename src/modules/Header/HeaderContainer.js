@@ -9,10 +9,10 @@ import { filterList } from '../../helpers/filteringUtils';
 
 const HeaderContainer = () => {
   const dispatch = useDispatch();
-  const propertyList = useSelector(selectors.propertyList);
+  const autoSuggestList = useSelector(selectors.allPropertiesArray);
   const [inputValue, setInputValue] = useState('');
 
-  const filteredList = propertyList.filter(filterList(inputValue));
+  const filteredList = autoSuggestList.filter(filterList(inputValue));
 
   const handleInput = useCallback(e => setInputValue(e.target.value), []);
 

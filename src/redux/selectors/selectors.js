@@ -19,17 +19,27 @@ const offset = createSelector(
 const filterBy = state => state.filterBy;
 
 // LISTS
+export const allPropertiesArray = createSelector([allProperties], updatedList =>
+  Object.values(updatedList)
+);
+
 export const propertyList = createSelector(
-  [allProperties, currentColumn, currentDirection, filterBy, offset, pageLimit],
+  [
+    allPropertiesArray,
+    currentColumn,
+    currentDirection,
+    filterBy,
+    offset,
+    pageLimit
+  ],
   (list, column, direction, filterBy, offset, limit) =>
-    Object.values(list)
+    list
       .filter(filterList(filterBy))
       .sort(sortList(column, direction))
       .slice(offset, offset + limit)
 );
 
 export const totalRecords = createSelector(
-  [allProperties, filterBy],
-  (updatedList, filterBy) =>
-    Object.values(updatedList).filter(filterList(filterBy)).length
+  [allPropertiesArray, filterBy],
+  (updatedList, filterBy) => updatedList.filter(filterList(filterBy)).length
 );

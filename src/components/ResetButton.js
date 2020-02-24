@@ -9,7 +9,7 @@ const Button = styled.button`
   border: none;
   outline: none;
   color: white;
-  background-color: blue;
+  background-color: teal;
   cursor: pointer;
 `;
 
