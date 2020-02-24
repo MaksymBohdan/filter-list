@@ -23,7 +23,7 @@ const Header = ({
   filteredList,
   handleInput,
   handleTableFilter,
-  handleResetFilter
+  handleResetFilter,
 }) => (
   <>
     <Title className="app">PROPERTIES TABLE</Title>
@@ -34,7 +34,10 @@ const Header = ({
         onKeyPress={handleTableFilter}
       />
       <ResetButton onReset={handleResetFilter} />
-      <AutoSuggestion isOpen={!!inputValue} listToRender={filteredList} />
+      <AutoSuggestion
+        isOpen={!!inputValue}
+        filteredList={filteredList}
+      />
     </FilterContainer>
   </>
 );

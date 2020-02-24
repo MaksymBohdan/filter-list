@@ -17,7 +17,7 @@ const PageItem = styled.li`
   margin: 3px;
   text-align: center;
   color: white;
-  background-color: ${props => (props.active ? 'teal' : 'blue')};
+  background-color: ${props => (props.active ? 'darkblue' : 'teal')};
   border-radius: 50%;
   cursor: pointer;
   font-weight: bold;
